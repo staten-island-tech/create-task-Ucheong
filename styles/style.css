@@ -44,3 +44,17 @@ button:focus-visible {
   display: inline;
 }
 
+.home {
+  
+.start{
+  float: left;
+  padding: 10px;
+  color: white;
+  font-size: 10px;
+  border-color: white;
+  background-color: green;
+  border-left: none; 
+  cursor: pointer;
+  display: inline;
+}
+}

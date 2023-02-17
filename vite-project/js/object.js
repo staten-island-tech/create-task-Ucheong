@@ -1,4 +1,4 @@
-const array = [
+const object = [
   {
     name: "Monkey1",
     image: "imgs/monkey1.jpg",
@@ -121,4 +121,4 @@ const array = [
   },
 ];
 
-export { array };
+export { object };
