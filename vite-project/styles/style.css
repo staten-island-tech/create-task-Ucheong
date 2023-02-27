@@ -58,3 +58,9 @@ button:focus-visible {
   display: inline;
 }
 }
+
+.explaination {
+  font-size: 2rem;
+  text-align: center;
+}
+
