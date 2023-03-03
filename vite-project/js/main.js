@@ -6,6 +6,7 @@ import "./array";
 
 document.querySelector(".start").addEventListener("click", function () {
   DOMSelectors.start.remove();
+  DOMSelectors.gridbefore.remove();
   DOMSelectors.timerbox.insertAdjacentHTML(
     "afterbegin",
     `<p class="timer">1:00</p>`
@@ -33,16 +34,31 @@ function timer() {
 
 array.sort(() => 0.5 - Math.random());
 
+function gridbefore() {
+  const cardCount = 30;
+  for (let i = 0; i < cardCount; i++) {
+    DOMSelectors.display.insertAdjacentHTML(
+      "afterbegin",
+      `<img class="default" src="../imgs/black.avif" alt="The Color Black" />`
+    );
+  }
+  const card = document.createElement(`img`);
+  card.setAttribute(`data-id`, i);
+  card.addEventListener(`click`, flipcard);
+}
+gridbefore();
+
 function grid() {
   const cardCount = 30;
   for (let i = 0; i < cardCount; i++) {
     DOMSelectors.grid.insertAdjacentHTML(
       "afterbegin",
-      `<img class="default" src="../imgs/black.jpg" alt="The Color Black" />`
+      `<img class="default" src="../imgs/black.avif" alt="The Color Black" />`
     );
   }
 }
-// function flipcard() {}
+
+function flipcard() {}
 
 // function check() {}
 

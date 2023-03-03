@@ -44,7 +44,7 @@ button:focus-visible {
   display: inline;
 }
 
-.home {
+.home {}
   
 .start{
   float: left;
@@ -57,10 +57,25 @@ button:focus-visible {
   cursor: pointer;
   display: inline;
 }
-}
+
 
 .explaination {
   font-size: 2rem;
   text-align: center;
 }
 
+.grid, .gridbefore{
+  display: flex;
+}
+
+.default {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 20%;
+  height: 25rem;
+  align-items: center;
+  border-radius: 3rem;
+  border:solid;
+  margin: 1rem 3rem;
+}

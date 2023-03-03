@@ -4,6 +4,7 @@ const DOMSelectors = {
   timer: document.querySelector(".timer"),
   timerbox: document.querySelector(".timerbox"),
   display: document.querySelector(".display"),
+  gridbefore: document.querySelector(".gridbefore"),
 };
 
 export { DOMSelectors };
