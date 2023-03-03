@@ -11,6 +11,10 @@ document.querySelector(".start").addEventListener("click", function () {
     "afterbegin",
     `<p class="timer">1:00</p>`
   );
+  DOMSelectors.display.insertAdjacentHTML(
+    "afterbegin",
+    `<p class="score'> Score: </p>`
+  );
   setInterval(timer, 1000);
   timer();
   grid();
@@ -58,7 +62,9 @@ function grid() {
   }
 }
 
-function flipcard() {}
+function flipcard() {
+  //update score +1 x/15
+}
 
 // function check() {}
 
