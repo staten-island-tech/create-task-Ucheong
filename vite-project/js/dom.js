@@ -5,6 +5,7 @@ const DOMSelectors = {
   timerbox: document.querySelector(".timerbox"),
   display: document.querySelector(".display"),
   gridbefore: document.querySelector(".gridbefore"),
+  cards: document.querySelector(".cards"),
 };
 
 export { DOMSelectors };

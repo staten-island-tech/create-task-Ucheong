@@ -20,8 +20,6 @@ document.querySelector(".start").addEventListener("click", function () {
   grid();
 });
 
-// function board() {}
-
 let time = 60;
 
 function timer() {
@@ -36,36 +34,47 @@ function timer() {
   time--;
 }
 
-array.sort(() => 0.5 - Math.random());
-
 function gridbefore() {
   const cardCount = 30;
   for (let i = 0; i < cardCount; i++) {
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<img class="default" src="../imgs/black.avif" alt="The Color Black" />`
+      `<div class="default">
+      <img src="../imgs/black.avif" alt="The Color Black"/>
+      </div>`
     );
   }
-  const card = document.createElement(`img`);
-  card.setAttribute(`data-id`, i);
-  card.addEventListener(`click`, flipcard);
 }
 gridbefore();
 
 function grid() {
-  const cardCount = 30;
-  for (let i = 0; i < cardCount; i++) {
-    DOMSelectors.grid.insertAdjacentHTML(
-      "afterbegin",
-      `<img class="default" src="../imgs/black.avif" alt="The Color Black" />`
-    );
-  }
+  array.map((card) => {
+    card.addEventListener(`click`, () => {
+      array.sort(() => 0.5 - Math.random());
+      let image = card.image;
+      console.log(array);
+      DOMSelectors.grid.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="default">
+        <img src="../imgs/black.avif" alt="The Color Black"/>
+        </div>
+        <div class="monkey"> <img src="{image}"> </div>`
+      );
+    });
+  });
+
+  // for (let i = 0; i < cardCount; i++) {
+  //   const card = document.createElement(`img`);
+  //   card.setAttribute(`data-id`, i);
+  //   card.addEventListener(`click`, flipcard);
 }
 
 function flipcard() {
   //update score +1 x/15
 }
 
-// function check() {}
+function check() {}
+
+function popup() {}
 
 // <button class="home"><i class="fa fa-home"></i></button>
