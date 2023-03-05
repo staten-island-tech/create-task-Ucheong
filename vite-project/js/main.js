@@ -30,12 +30,11 @@ function timer() {
   } else {
     seconds = time % 60;
   }
-  DOMSelectors.timerbox.innerHTML = `${minutes}:${seconds}`;
+  DOMSelectors.timerbox.innerHTML = `${minutes}m:${seconds}s`;
   time--;
-}
-
-if (time === 0) {
-  popup();
+  if (time === 0) {
+    popup();
+  }
 }
 
 // function gridbefore() {
@@ -67,48 +66,57 @@ function grid() {
 
 array.sort(() => 0.5 - Math.random());
 
-let selected = 0;
+let selected = [];
 
 function flipcard(event) {
   const randomcard = array.pop();
   const img = event.target;
-  img.src = randomcard.image;
-  const cards = document.querySelectorAll(".black");
-  cards.forEach((card) => {
-    card.addEventListener("click", function () {
-      selected++;
-      if (selected === 2) {
-        setTimeout(check, 500);
-      }
-      selected = 0;
-    });
-  });
-  // if (selected.length === 2) {
-  //   setTimeout(check, 500);
-  // }
+  img.src = randomcard;
+  selected.push(randomcard);
+  img.removeEventListener(`click`, flipcard);
+  if (selected === 2) {
+    setTimeout(check, 500);
+  }
 }
 
 let score = 0;
 
 function check() {
-  for (let i = 0; i < 15; i++) {
-    const firstimg = selected[0].querySelector("img").getAttribute("src");
-    const secondimg = selected[1].querySelector("img").getAttribute("src");
-    if (firstimg === secondimg) {
-      DOMSelectors.scoreparent.innerHTML = `Score: ${i}/15`;
-      firstimg.remove();
-      secondimg.remove();
-    } else if (firstimg !== secondimg) {
-      selected.forEach((card) => {
-        card.querySelector("img").setAttribute(`src`, `../imgs/black.avif`);
-      });
+  array.forEach((element) => {
+    if (element) {
+      element.classList.add("poo");
     }
+  });
+  const firstimg = selected[0].querySelector("poo").getAttribute("src");
+  const secondimg = selected[1].querySelector("poo").getAttribute("src");
+  if (firstimg === secondimg) {
+    score++;
+    DOMSelectors.scoreparent.innerHTML = `Score: ${score}/15`;
+    firstimg.remove();
+    secondimg.remove();
+    reset();
+  } else {
+    selected.forEach((card) => {
+      card.querySelector("img").setAttribute(`src`, `../imgs/black.avif`);
+      card.addEventListener("click", flipcard);
+      selected = [];
+    });
   }
+}
+
+function reset() {
+  firstCard = null;
+  secondCard = null;
 }
 
 function popup() {
   let popupparent = document.createElement(`div`);
-  //no cards left
+  array.forEach((element) => {
+    if (element) {
+      element.classList.add("poo");
+    }
+  });
+  const cards = document.querySelectorAll(".poo");
   if (cards.length === 0) {
     popupparent.innerHTML = `<h2> YOU WIN!</h2> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button>`;
   } else {
@@ -119,28 +127,3 @@ function popup() {
     DOMSelectors.display.innerHTML = ``;
   });
 }
-
-// array.forEach((card) => {
-//   card.addEventListener(`click`, () => {
-//     let image = card.image;
-//     console.log(array);
-//     DOMSelectors.grid.insertAdjacentHTML(
-//       "afterbegin",
-//       `<div class="default">
-//       <img src="../imgs/black.avif" alt="The Color Black"/>
-//       </div>
-//       <div class="monkey"> <img src="{image}"> </div>`
-//     );
-//   });
-// });
-
-// for (let i = 0; i < cardCount; i++) {
-//   const card = document.createElement(`img`);
-//   card.setAttribute(`data-id`, i);
-//   card.addEventListener(`click`, flipcard);
-
-//function () {
-//   const randomcard = array[Math.floor(Math.random() * cardArray.length)];
-//   const img = this.querySelector("img");
-//   img.src = randomcard.img;
-// });
