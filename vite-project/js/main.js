@@ -17,6 +17,7 @@ document.querySelector(".start").addEventListener("click", function () {
   );
   setInterval(timer, 1000);
   timer();
+  shuffle();
   grid();
 });
 
@@ -33,7 +34,9 @@ function timer() {
   DOMSelectors.timerbox.innerHTML = `${minutes}m:${seconds}s`;
   time--;
   if (time === 0) {
-    popup();
+    let timeinterval;
+    clearInterval(timeinterval);
+    losepopup();
   }
 }
 
@@ -52,10 +55,11 @@ function timer() {
 
 function grid() {
   const cardCount = 30;
+  const black = "../imgs/black.avif";
   for (let i = 0; i < cardCount; i++) {
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<img class="black" src="../imgs/black.avif" alt="The Color Black"/>`
+      `<img class="black" src="${black}" alt="The Color Black"/>`
     );
   }
   const cards = document.querySelectorAll(".black");
@@ -64,66 +68,67 @@ function grid() {
   });
 }
 
-array.sort(() => 0.5 - Math.random());
+function shuffle() {
+  array.sort(() => 0.5 - Math.random());
+}
 
 let selected = [];
 
 function flipcard(event) {
   const randomcard = array.pop();
   const img = event.target;
+  // const imgs = "imgs";
+  // img.classList.add(imgs);
   img.src = randomcard;
-  selected.push(randomcard);
+  const card = { src: randomcard, element: img };
+  selected.push(card);
   img.removeEventListener(`click`, flipcard);
-  if (selected === 2) {
+  if (selected.length === 2) {
     setTimeout(check, 500);
   }
 }
 
 let score = 0;
+let pairs = 15;
 
 function check() {
-  array.forEach((element) => {
-    if (element) {
-      element.classList.add("poo");
-    }
-  });
-  const firstimg = selected[0].querySelector("poo").getAttribute("src");
-  const secondimg = selected[1].querySelector("poo").getAttribute("src");
+  let firstimg = selected[0].src;
+  let secondimg = selected[1].src;
   if (firstimg === secondimg) {
     score++;
     DOMSelectors.scoreparent.innerHTML = `Score: ${score}/15`;
-    firstimg.remove();
-    secondimg.remove();
-    reset();
+    selected[0].element.remove();
+    selected[1].element.remove();
+    firstimg = null;
+    secondimg = null;
+    pairs--;
+    if (pairs === 0) {
+      winpopup();
+    }
   } else {
     selected.forEach((card) => {
-      card.querySelector("img").setAttribute(`src`, `../imgs/black.avif`);
-      card.addEventListener("click", flipcard);
-      selected = [];
+      card.element.src = `../imgs/black.avif`;
+      card.element.addEventListener("click", flipcard);
     });
   }
+  selected = [];
+}
+function losepopup() {
+  popup.innerHTML = `<h2> YOU WIN!</h2> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button>`;
+}
+function winpopup() {
+  popup.innerHTML = `<h2> YOU LOSE!</h2> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button>`;
 }
 
-function reset() {
-  firstCard = null;
-  secondCard = null;
-}
+// let popup = document.createElement(`div`);
+// popup.classList.add("popup");
 
-function popup() {
-  let popupparent = document.createElement(`div`);
-  array.forEach((element) => {
-    if (element) {
-      element.classList.add("poo");
-    }
-  });
-  const cards = document.querySelectorAll(".poo");
-  if (cards.length === 0) {
-    popupparent.innerHTML = `<h2> YOU WIN!</h2> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button>`;
-  } else {
-    popupparent.innerHTML = `<h2> YOU LOSE!</h2> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button>`;
-  }
-  popupparent.style.display = "block";
-  document.querySelector(".home").addEventListener("click", function () {
-    DOMSelectors.display.innerHTML = ``;
-  });
-}
+// document.body.appendChild(popup);
+// popupparent.style.display = "block";
+// document.querySelector(".home").addEventListener("click", function () {
+//   DOMSelectors.display.innerHTML = ``;
+// });
+
+//run the check function so that it still works after i get a point
+//css
+//doesnt have a different image everytime
