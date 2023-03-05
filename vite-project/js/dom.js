@@ -6,6 +6,7 @@ const DOMSelectors = {
   display: document.querySelector(".display"),
   gridbefore: document.querySelector(".gridbefore"),
   cards: document.querySelector(".cards"),
+  scoreparent: document.querySelector(".scoreparent"),
 };
 
 export { DOMSelectors };

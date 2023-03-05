@@ -11,9 +11,9 @@ document.querySelector(".start").addEventListener("click", function () {
     "afterbegin",
     `<p class="timer">1:00</p>`
   );
-  DOMSelectors.display.insertAdjacentHTML(
+  DOMSelectors.scoreparent.insertAdjacentHTML(
     "afterbegin",
-    `<p class="score'> Score: </p>`
+    `<p class="score"> Score: 0/15 </p>`
   );
   setInterval(timer, 1000);
   timer();
@@ -34,47 +34,113 @@ function timer() {
   time--;
 }
 
-function gridbefore() {
+if (time === 0) {
+  popup();
+}
+
+// function gridbefore() {
+//   const cardCount = 30;
+//   for (let i = 0; i < cardCount; i++) {
+//     DOMSelectors.display.insertAdjacentHTML(
+//       "afterbegin",
+//       `<div class="default">
+//       <img src="../imgs/black.avif" alt="The Color Black"/>
+//       </div>`
+//     );
+//   }
+// }
+// gridbefore();
+
+function grid() {
   const cardCount = 30;
   for (let i = 0; i < cardCount; i++) {
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<div class="default">
-      <img src="../imgs/black.avif" alt="The Color Black"/>
-      </div>`
+      `<img class="black" src="../imgs/black.avif" alt="The Color Black"/>`
     );
   }
+  const cards = document.querySelectorAll(".black");
+  cards.forEach((card) => {
+    card.addEventListener("click", flipcard);
+  });
 }
-gridbefore();
 
-function grid() {
-  array.map((card) => {
-    card.addEventListener(`click`, () => {
-      array.sort(() => 0.5 - Math.random());
-      let image = card.image;
-      console.log(array);
-      DOMSelectors.grid.insertAdjacentHTML(
-        "afterbegin",
-        `<div class="default">
-        <img src="../imgs/black.avif" alt="The Color Black"/>
-        </div>
-        <div class="monkey"> <img src="{image}"> </div>`
-      );
+array.sort(() => 0.5 - Math.random());
+
+let selected = 0;
+
+function flipcard(event) {
+  const randomcard = array.pop();
+  const img = event.target;
+  img.src = randomcard.image;
+  const cards = document.querySelectorAll(".black");
+  cards.forEach((card) => {
+    card.addEventListener("click", function () {
+      selected++;
+      if (selected === 2) {
+        setTimeout(check, 500);
+      }
+      selected = 0;
     });
   });
-
-  // for (let i = 0; i < cardCount; i++) {
-  //   const card = document.createElement(`img`);
-  //   card.setAttribute(`data-id`, i);
-  //   card.addEventListener(`click`, flipcard);
+  // if (selected.length === 2) {
+  //   setTimeout(check, 500);
+  // }
 }
 
-function flipcard() {
-  //update score +1 x/15
+let score = 0;
+
+function check() {
+  for (let i = 0; i < 15; i++) {
+    const firstimg = selected[0].querySelector("img").getAttribute("src");
+    const secondimg = selected[1].querySelector("img").getAttribute("src");
+    if (firstimg === secondimg) {
+      DOMSelectors.scoreparent.innerHTML = `Score: ${i}/15`;
+      firstimg.remove();
+      secondimg.remove();
+    } else if (firstimg !== secondimg) {
+      selected.forEach((card) => {
+        card.querySelector("img").setAttribute(`src`, `../imgs/black.avif`);
+      });
+    }
+  }
 }
 
-function check() {}
+function popup() {
+  let popupparent = document.createElement(`div`);
+  //no cards left
+  if (cards.length === 0) {
+    popupparent.innerHTML = `<h2> YOU WIN!</h2> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button>`;
+  } else {
+    popupparent.innerHTML = `<h2> YOU LOSE!</h2> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button>`;
+  }
+  popupparent.style.display = "block";
+  document.querySelector(".home").addEventListener("click", function () {
+    DOMSelectors.display.innerHTML = ``;
+  });
+}
 
-function popup() {}
+// array.forEach((card) => {
+//   card.addEventListener(`click`, () => {
+//     let image = card.image;
+//     console.log(array);
+//     DOMSelectors.grid.insertAdjacentHTML(
+//       "afterbegin",
+//       `<div class="default">
+//       <img src="../imgs/black.avif" alt="The Color Black"/>
+//       </div>
+//       <div class="monkey"> <img src="{image}"> </div>`
+//     );
+//   });
+// });
 
-// <button class="home"><i class="fa fa-home"></i></button>
+// for (let i = 0; i < cardCount; i++) {
+//   const card = document.createElement(`img`);
+//   card.setAttribute(`data-id`, i);
+//   card.addEventListener(`click`, flipcard);
+
+//function () {
+//   const randomcard = array[Math.floor(Math.random() * cardArray.length)];
+//   const img = this.querySelector("img");
+//   img.src = randomcard.img;
+// });
