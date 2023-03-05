@@ -16,8 +16,8 @@ document.querySelector(".start").addEventListener("click", function () {
     `<p class="score"> Score: 0/15 </p>`
   );
   setInterval(timer, 1000);
-  timer();
   shuffle();
+  timer();
   grid();
 });
 
@@ -55,17 +55,21 @@ function timer() {
 
 function grid() {
   const cardCount = 30;
-  const black = "../imgs/black.avif";
+  const blackimg = "../imgs/black.avif";
   for (let i = 0; i < cardCount; i++) {
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<img class="black" src="${black}" alt="The Color Black"/>`
+      `<img class="card" src="${blackimg}" alt="The Color Black"/>`
     );
   }
-  const cards = document.querySelectorAll(".black");
+  const cards = document.querySelectorAll(".card");
   cards.forEach((card) => {
     card.addEventListener("click", flipcard);
   });
+  // cards.forEach((card, index) => {
+  //   card.addEventListener("click", flipcard);
+  //   card.dataset.monkey = array[index];
+  // });
 }
 
 function shuffle() {
@@ -77,13 +81,17 @@ let selected = [];
 function flipcard(event) {
   const randomcard = array.pop();
   const img = event.target;
-  // const imgs = "imgs";
-  // img.classList.add(imgs);
+  const imgs = "imgs";
+  img.classList.add(imgs);
   img.src = randomcard;
   const card = { src: randomcard, element: img };
   selected.push(card);
   img.removeEventListener(`click`, flipcard);
   if (selected.length === 2) {
+    // const cards = document.querySelectorAll(".card");
+    // cards.forEach((card) => {
+    //   card.removeEventListener("click", flipcard);
+    // });
     setTimeout(check, 500);
   }
 }
@@ -112,7 +120,14 @@ function check() {
     });
   }
   selected = [];
+  // const cards = document.querySelectorAll(".card");
+  // cards.forEach((card) => {
+  //   if (!card.classList.contains("imgs")) {
+  //     card.addEventListener("click", flipcard);
+  //   }
+  // });
 }
+
 function losepopup() {
   popup.innerHTML = `<h2> YOU WIN!</h2> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button>`;
 }
@@ -132,3 +147,4 @@ function winpopup() {
 //run the check function so that it still works after i get a point
 //css
 //doesnt have a different image everytime
+//restrict clicking once two are

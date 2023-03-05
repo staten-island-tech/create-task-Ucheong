@@ -68,7 +68,7 @@ button:focus-visible {
   text-align: center;
 }
 
-.imgs {
-  width: 100%;
-  height: auto;
+.card{
+  width: 200px;
+  height: 200px;
 }
