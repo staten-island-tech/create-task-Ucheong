@@ -56,20 +56,24 @@ function timer() {
 function grid() {
   const cardCount = 30;
   const blackimg = "../imgs/black.avif";
+
   for (let i = 0; i < cardCount; i++) {
+    // const card = document.createElement("img");
+    // card.setAttribute("data-id", i);
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
       `<img class="card" src="${blackimg}" alt="The Color Black"/>`
     );
+
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      card.addEventListener("click", flipcard);
+    });
+    // cards.forEach((card, index) => {
+    //   card.addEventListener("click", flipcard);
+    //   card.dataset.monkey = array[index];
+    // });
   }
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) => {
-    card.addEventListener("click", flipcard);
-  });
-  // cards.forEach((card, index) => {
-  //   card.addEventListener("click", flipcard);
-  //   card.dataset.monkey = array[index];
-  // });
 }
 
 function shuffle() {
@@ -114,6 +118,8 @@ function check() {
       winpopup();
     }
   } else {
+    // selected[0].element.src = "../imgs/black.avif";
+    // selected[1].element.src = "../imgs/black.avif";
     selected.forEach((card) => {
       card.element.src = `../imgs/black.avif`;
       card.element.addEventListener("click", flipcard);
@@ -129,10 +135,10 @@ function check() {
 }
 
 function losepopup() {
-  popup.innerHTML = `<h2> YOU WIN!</h2> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button>`;
+  DOMSelectors.popup.innerHTML = `<h2> Congratulations!</h2> <p> You have won the game!</p> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button> <button class="again"> Play Again</button`;
 }
 function winpopup() {
-  popup.innerHTML = `<h2> YOU LOSE!</h2> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button>`;
+  DOMSelectors.popup.innerHTML = `<h2> Time's Up!</h2> <p> You have lost the game!</p> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button> <button class="again"> Play Again</button>`;
 }
 
 // let popup = document.createElement(`div`);
@@ -145,6 +151,5 @@ function winpopup() {
 // });
 
 //run the check function so that it still works after i get a point
-//css
 //doesnt have a different image everytime
 //restrict clicking once two are
