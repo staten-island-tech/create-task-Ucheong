@@ -1,13 +1,15 @@
 import "./dom";
 import { DOMSelectors } from "./dom";
 import "../styles/style.css";
-import { array } from "./array";
+import { monkeyArray } from "./array";
 import "./array";
+
+const cards = document.querySelectorAll(".card");
 
 document.querySelector(".start").addEventListener("click", function () {
   DOMSelectors.start.remove();
   DOMSelectors.gridbefore.remove();
-  DOMSelectors.timerbox.insertAdjacentHTML(
+  DOMSelectors.timerBox.insertAdjacentHTML(
     "afterbegin",
     `<p class="timer">1:00</p>`
   );
@@ -31,12 +33,12 @@ function timer() {
   } else {
     seconds = time % 60;
   }
-  DOMSelectors.timerbox.innerHTML = `${minutes}m:${seconds}s`;
+  DOMSelectors.timerBox.innerHTML = `${minutes}m:${seconds}s`;
   time--;
   if (time === 0) {
-    let timeinterval;
-    clearInterval(timeinterval);
-    losepopup();
+    let timeInterval;
+    clearInterval(timeInterval);
+    losePopup();
   }
 }
 
@@ -55,89 +57,71 @@ function timer() {
 
 function grid() {
   const cardCount = 30;
-  const blackimg = "../imgs/black.avif";
+  const blackImg = "../imgs/black.avif";
 
   for (let i = 0; i < cardCount; i++) {
-    // const card = document.createElement("img");
-    // card.setAttribute("data-id", i);
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<img class="card" src="${blackimg}" alt="The Color Black"/>`
+      `<img class="card" src="${blackImg}" alt="The Color Black"/>`
     );
 
     const cards = document.querySelectorAll(".card");
     cards.forEach((card) => {
-      card.addEventListener("click", flipcard);
+      card.addEventListener("click", flipCard);
     });
-    // cards.forEach((card, index) => {
-    //   card.addEventListener("click", flipcard);
-    //   card.dataset.monkey = array[index];
-    // });
   }
 }
 
 function shuffle() {
-  array.sort(() => 0.5 - Math.random());
+  monkeyArray.sort(() => 0.5 - Math.random());
 }
 
 let selected = [];
 
-function flipcard(event) {
-  const randomcard = array.pop();
+function flipCard(event) {
+  const randomCard = monkeyArray.pop();
   const img = event.target;
-  const imgs = "imgs";
-  img.classList.add(imgs);
-  img.src = randomcard;
-  const card = { src: randomcard, element: img };
+  img.src = randomCard;
+  const card = { src: randomCard, element: img };
   selected.push(card);
-  img.removeEventListener(`click`, flipcard);
+  card.element.removeEventListener("click", flipCard);
   if (selected.length === 2) {
-    // const cards = document.querySelectorAll(".card");
-    // cards.forEach((card) => {
-    //   card.removeEventListener("click", flipcard);
-    // });
+    cards.forEach((card) => {
+      card.removeEventListener("click", flipCard);
+    });
     setTimeout(check, 500);
   }
 }
 
 let score = 0;
-let pairs = 15;
 
 function check() {
   let firstimg = selected[0].src;
   let secondimg = selected[1].src;
   if (firstimg === secondimg) {
     score++;
-    DOMSelectors.scoreparent.innerHTML = `Score: ${score}/15`;
+    DOMSelectors.scoreParent.innerHTML = `Score: ${score}/15`;
     selected[0].element.remove();
     selected[1].element.remove();
-    firstimg = null;
-    secondimg = null;
-    pairs--;
-    if (pairs === 0) {
-      winpopup();
+    if (score === 15) {
+      winPopup();
     }
   } else {
-    // selected[0].element.src = "../imgs/black.avif";
-    // selected[1].element.src = "../imgs/black.avif";
     selected.forEach((card) => {
       card.element.src = `../imgs/black.avif`;
-      card.element.addEventListener("click", flipcard);
+      card.element.addEventListener("click", flipCard);
     });
   }
   selected = [];
-  // const cards = document.querySelectorAll(".card");
-  // cards.forEach((card) => {
-  //   if (!card.classList.contains("imgs")) {
-  //     card.addEventListener("click", flipcard);
-  //   }
-  // });
+  cards.forEach((card) => {
+    card.addEventListener("click", flipCard);
+  });
 }
 
-function losepopup() {
+function losePopup() {
   DOMSelectors.popup.innerHTML = `<h2> Congratulations!</h2> <p> You have won the game!</p> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button> <button class="again"> Play Again</button`;
 }
-function winpopup() {
+function winPopup() {
   DOMSelectors.popup.innerHTML = `<h2> Time's Up!</h2> <p> You have lost the game!</p> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button> <button class="again"> Play Again</button>`;
 }
 
@@ -150,6 +134,7 @@ function winpopup() {
 //   DOMSelectors.display.innerHTML = ``;
 // });
 
+//document.querySelector(".restart").addEventListener("click", function () {})
 //run the check function so that it still works after i get a point
 //doesnt have a different image everytime
 //restrict clicking once two are

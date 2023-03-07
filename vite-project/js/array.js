@@ -121,7 +121,7 @@
 //   },
 // ];
 
-const array = [
+const monkeyArray = [
   "imgs/monkey1.jpg",
   "imgs/monkey1.jpg",
   "imgs/monkey2.jpg",
@@ -154,4 +154,4 @@ const array = [
   "imgs/monkey15.jpg",
 ];
 
-export { array };
+export { monkeyArray };
