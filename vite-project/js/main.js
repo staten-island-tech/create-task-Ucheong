@@ -13,7 +13,7 @@ document.querySelector(".start").addEventListener("click", function () {
     "afterbegin",
     `<p class="timer">1:00</p>`
   );
-  DOMSelectors.scoreparent.insertAdjacentHTML(
+  DOMSelectors.scoreParent.insertAdjacentHTML(
     "afterbegin",
     `<p class="score"> Score: 0/15 </p>`
   );
