@@ -96,9 +96,9 @@ function flipCard(event) {
 let score = 0;
 
 function check() {
-  let firstimg = selected[0].src;
-  let secondimg = selected[1].src;
-  if (firstimg === secondimg) {
+  let firstImg = selected[0].src;
+  let secondImg = selected[1].src;
+  if (firstImg === secondImg) {
     score++;
     DOMSelectors.scoreParent.innerHTML = `Score: ${score}/15`;
     selected[0].element.remove();
