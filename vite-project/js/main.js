@@ -5,10 +5,13 @@ import { monkeyArray } from "./array";
 import "./array";
 
 const cards = document.querySelectorAll(".card");
+let selected = [];
+let time = 60;
+let score = 0;
 
 document.querySelector(".start").addEventListener("click", function () {
   DOMSelectors.start.remove();
-  DOMSelectors.gridbefore.remove();
+  // DOMSelectors.gridbefore.remove();
   DOMSelectors.timerBox.insertAdjacentHTML(
     "afterbegin",
     `<p class="timer">1:00</p>`
@@ -22,8 +25,6 @@ document.querySelector(".start").addEventListener("click", function () {
   timer();
   grid();
 });
-
-let time = 60;
 
 function timer() {
   let minutes = Math.floor(time / 60);
@@ -58,13 +59,11 @@ function timer() {
 function grid() {
   const cardCount = 30;
   const blackImg = "../imgs/black.avif";
-
   for (let i = 0; i < cardCount; i++) {
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
       `<img class="card" src="${blackImg}" alt="The Color Black"/>`
     );
-
     const cards = document.querySelectorAll(".card");
     cards.forEach((card) => {
       card.addEventListener("click", flipCard);
@@ -75,8 +74,6 @@ function grid() {
 function shuffle() {
   monkeyArray.sort(() => 0.5 - Math.random());
 }
-
-let selected = [];
 
 function flipCard(event) {
   const randomCard = monkeyArray.pop();
@@ -92,8 +89,6 @@ function flipCard(event) {
     setTimeout(check, 500);
   }
 }
-
-let score = 0;
 
 function check() {
   let firstImg = selected[0].src;
