@@ -64,7 +64,7 @@ function grid() {
       monkeyArray[Math.floor(Math.random() * (monkeyArray.length - 1))];
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<img class="card" src="${blackImg}" id="${monkeyImg}"alt="The Color Black"/>`
+      `<img class="card" src="${blackImg}" id="${monkeyImg}"/>`
     );
     monkeyArray.splice(monkeyArray.indexOf(monkeyImg), 1);
   }
