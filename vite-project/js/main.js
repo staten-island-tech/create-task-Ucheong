@@ -93,7 +93,6 @@ function flipCard(event) {
 }
 
 function check() {
-  console.log(selected);
   let firstImg = selected[0].src;
   let secondImg = selected[1].src;
   if (firstImg === secondImg) {
