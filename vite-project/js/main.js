@@ -4,10 +4,10 @@ import "../styles/style.css";
 import { monkeyArray } from "./array";
 import "./array";
 
-const cards = document.querySelectorAll(".card");
-let selected = [];
-let time = 60;
-let score = 0;
+let cards = document.querySelectorAll(".card"),
+  selected = [],
+  time = 60,
+  score = 0;
 
 document.querySelector(".start").addEventListener("click", function () {
   DOMSelectors.start.remove();
@@ -60,15 +60,18 @@ function grid() {
   const cardCount = 30;
   const blackImg = "../imgs/black.avif";
   for (let i = 0; i < cardCount; i++) {
+    let monkeyImg =
+      monkeyArray[Math.floor(Math.random() * (monkeyArray.length - 1))];
     DOMSelectors.display.insertAdjacentHTML(
       "afterbegin",
-      `<img class="card" src="${blackImg}" alt="The Color Black"/>`
+      `<img class="card" src="${blackImg}" id="${monkeyImg}"alt="The Color Black"/>`
     );
-    const cards = document.querySelectorAll(".card");
-    cards.forEach((card) => {
-      card.addEventListener("click", flipCard);
-    });
+    monkeyArray.splice(monkeyArray.indexOf(monkeyImg), 1);
   }
+  cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
+    card.addEventListener("click", flipCard);
+  });
 }
 
 function shuffle() {
@@ -76,10 +79,9 @@ function shuffle() {
 }
 
 function flipCard(event) {
-  const randomCard = monkeyArray.pop();
   const img = event.target;
-  img.src = randomCard;
-  const card = { src: randomCard, element: img };
+  img.src = img.id;
+  const card = { src: img.id, element: img };
   selected.push(card);
   card.element.removeEventListener("click", flipCard);
   if (selected.length === 2) {
@@ -91,6 +93,7 @@ function flipCard(event) {
 }
 
 function check() {
+  console.log(selected);
   let firstImg = selected[0].src;
   let secondImg = selected[1].src;
   if (firstImg === secondImg) {
@@ -103,6 +106,7 @@ function check() {
     }
   } else {
     selected.forEach((card) => {
+      console.log(card.element);
       card.element.src = `../imgs/black.avif`;
       card.element.addEventListener("click", flipCard);
     });
