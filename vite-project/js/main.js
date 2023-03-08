@@ -105,7 +105,6 @@ function check() {
     }
   } else {
     selected.forEach((card) => {
-      console.log(card.element);
       card.element.src = `../imgs/black.avif`;
       card.element.addEventListener("click", flipCard);
     });
