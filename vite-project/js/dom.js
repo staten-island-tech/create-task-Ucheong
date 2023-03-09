@@ -15,7 +15,6 @@ const DOMSelectors = {
   timer: document.querySelector(".timer"),
   timerBox: document.querySelector(".timerbox"),
   display: document.querySelector(".display"),
-  gridbefore: document.querySelector(".gridbefore"),
   cards: document.querySelector(".cards"),
   scoreParent: document.querySelector(".scoreparent"),
   popup: document.querySelector(".popup"),

@@ -54,12 +54,12 @@ button:focus-visible {
   display: flex;
 }
 
-.popup {
-  visibility: visible;
+/* .popup {
+  visibility: hidden;
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
   position: fixed;
-}
+} */
 
 .scoreparent {
   text-align: center;

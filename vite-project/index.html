@@ -12,20 +12,22 @@
     <title>Create Task</title>
   </head>
   <body>
-    <h1 id="title">Memory Game</h1>
-    <p class="explanation">
-      There are 15 pairs of cards in this grid. Try your best to match every
-      card to another card with the same image in under a minute!
-    </p>
-    <button class="start">START</button>
-    <div class="gridbefore"></div>
+    <div class="intro">
+      <h1 id="title">Memory Game</h1>
+      <p class="explanation">
+        There are 15 pairs of cards in this grid. Try your best to match every
+        card to another card with the same image in under a minute!
+      </p>
+      <img id="example" src="" alt="what the grid looks like" />
+      <button class="start">START</button>
+    </div>
     <div class="display">
       <div class="timerbox"></div>
       <div class="grid"></div>
       <div class="cards"></div>
       <div class="scoreparent"></div>
-      <div class="popup"></div>
     </div>
+    <div class="popup"></div>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
