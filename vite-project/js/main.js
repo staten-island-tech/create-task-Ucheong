@@ -6,19 +6,20 @@ import "./array";
 
 let cards = document.querySelectorAll(".card"),
   selected = [],
-  time = 3,
+  time = 60,
   score = 0;
 
+function restart() {
+  DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
+  DOMSelectors.scoreParent.innerHTML = "<p class='score'> Score: 0/15 </p>";
+  setInterval(timer, 1000);
+  shuffle();
+  timer();
+  grid();
+}
 document.querySelector(".start").addEventListener("click", function start() {
   DOMSelectors.start.style.display = "none";
-  DOMSelectors.timerBox.insertAdjacentHTML(
-    "afterbegin",
-    `<p class="timer">1:00</p>`
-  );
-  DOMSelectors.scoreParent.insertAdjacentHTML(
-    "afterbegin",
-    `<p class="score"> Score: 0/15 </p>`
-  );
+  restart();
   // DOMSelectors.display.insertAdjacentHTML(
   //   "afterbegin",
   //   `<button class="restart"></button>`
@@ -26,10 +27,6 @@ document.querySelector(".start").addEventListener("click", function start() {
   // document.querySelector(".restart").addEventListener("click", function () {
   //   start();
   // });
-  setInterval(timer, 1000);
-  shuffle();
-  timer();
-  grid();
 });
 
 function timer() {
@@ -118,7 +115,10 @@ function winPopup() {
     DOMSelectors.popup.innerHTML = ``;
     DOMSelectors.start.style.display = "block";
   });
-  document.querySelector(".restart").addEventListener("click", start);
+  document.querySelector(".restart").addEventListener("click", function () {
+    DOMSelectors.display.innerHTML = ``;
+    restart();
+  });
 }
 
 function losePopup() {
@@ -131,8 +131,12 @@ function losePopup() {
     DOMSelectors.popup.innerHTML = ``;
     DOMSelectors.start.style.display = "block";
   });
-  document.querySelector(".restart").addEventListener("click", start);
+  document.querySelector(".restart").addEventListener("click", function () {
+    DOMSelectors.display.innerHTML = ``;
+    restart();
+  });
 }
 
 //css (flipcard, remove card) keep cards in same position even after others get removed, move time and score to the top, give the example at the beginning
 //big algorithmt that calls two functions with parameters
+//css so when popup shows up, u cant clikc anything outisde of it and u cant clikc outta it
