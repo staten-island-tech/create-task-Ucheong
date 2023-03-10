@@ -6,7 +6,7 @@ import "./array";
 
 let cards = document.querySelectorAll(".card"),
   selected = [],
-  time = 60,
+  time = 3,
   score = 0;
 
 function restart() {
@@ -17,9 +17,16 @@ function restart() {
   timer();
   grid();
 }
+
 document.querySelector(".start").addEventListener("click", function start() {
   DOMSelectors.start.style.display = "none";
-  restart();
+  DOMSelectors.example.style.display = "none";
+  DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
+  DOMSelectors.scoreParent.innerHTML = "<p class='score'> Score: 0/15 </p>";
+  setInterval(timer, 1000);
+  shuffle();
+  timer();
+  grid();
   // DOMSelectors.display.insertAdjacentHTML(
   //   "afterbegin",
   //   `<button class="restart"></button>`
@@ -39,9 +46,7 @@ function timer() {
   }
   DOMSelectors.timerBox.innerHTML = `${minutes}m:${seconds}s`;
   time--;
-  if (time === 0) {
-    let timeInterval;
-    clearInterval(timeInterval);
+  if (time === -1) {
     losePopup();
   }
 }
@@ -108,35 +113,37 @@ function check() {
 function winPopup() {
   DOMSelectors.popup.insertAdjacentHTML(
     "afterbegin",
-    `<h2> Congratulations!</h2> <p> You have won the game!</p> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i></button> <button class="restart"></button>`
+    `<h2> Congratulations!</h2> <p> You have won the game!</p> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i>Home</button> <button class="restart"> Play Again <i class="fa fa-trash"></i></button>`
   );
   document.querySelector(".home").addEventListener("click", function () {
     DOMSelectors.display.innerHTML = ``;
     DOMSelectors.popup.innerHTML = ``;
     DOMSelectors.start.style.display = "block";
+    DOMSelectors.example.style.display = "block";
   });
-  document.querySelector(".restart").addEventListener("click", function () {
-    DOMSelectors.display.innerHTML = ``;
-    restart();
-  });
+  // document.querySelector(".restart").addEventListener("click", function () {
+  //   DOMSelectors.display.innerHTML = ``;
+  //   restart();
+  // });
 }
 
 function losePopup() {
   DOMSelectors.popup.insertAdjacentHTML(
     "afterbegin",
-    `<h2> Time's Up!</h2> <p> You have lost the game!</p> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home"><i class="fa fa-home"></i></button> <button class="restart"> Play Again</button>`
+    `<h2> Time's Up!</h2> <p> You have lost the game!</p> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home">Home <i class="fa fa-home"></i></button> <button class="restart"> Play Again <i class="fa fa-refresh"></i></button>`
   );
   document.querySelector(".home").addEventListener("click", function () {
     DOMSelectors.display.innerHTML = ``;
     DOMSelectors.popup.innerHTML = ``;
     DOMSelectors.start.style.display = "block";
   });
-  document.querySelector(".restart").addEventListener("click", function () {
-    DOMSelectors.display.innerHTML = ``;
-    restart();
-  });
+  // document.querySelector(".restart").addEventListener("click", function () {
+  //   DOMSelectors.display.innerHTML = ``;
+  //   restart();
+  // });
 }
 
 //css (flipcard, remove card) keep cards in same position even after others get removed, move time and score to the top, give the example at the beginning
 //big algorithmt that calls two functions with parameters
 //css so when popup shows up, u cant clikc anything outisde of it and u cant clikc outta it
+//why popup early

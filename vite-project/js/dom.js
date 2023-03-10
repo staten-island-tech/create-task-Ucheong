@@ -18,6 +18,7 @@ const DOMSelectors = {
   cards: document.querySelector(".cards"),
   scoreParent: document.querySelector(".scoreparent"),
   popup: document.querySelector(".popup"),
+  example: document.querySelector(".example"),
 };
 
 export { DOMSelectors };
