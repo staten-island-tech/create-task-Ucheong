@@ -6,22 +6,19 @@ import "./array";
 
 let cards = document.querySelectorAll(".card"),
   selected = [],
-  time = 60,
+  time = ``,
   score = 0;
 let interval;
 
-const easyButton = document.querySelector(".easy");
-easyButton.addEventListener("click", function () {
+DOMSelectors.easy.addEventListener("click", function () {
   difficulty("easy");
 });
 
-const mediumButton = document.querySelector(".medium");
-mediumButton.addEventListener("click", function () {
+DOMSelectors.medium.addEventListener("click", function () {
   difficulty("medium");
 });
 
-const hardButton = document.querySelector(".hard");
-hardButton.addEventListener("click", function () {
+DOMSelectors.hard.addEventListener("click", function () {
   difficulty("hard");
 });
 
@@ -32,32 +29,42 @@ function difficulty(mode) {
     case "medium":
       return (time = 180);
     case "hard":
-      return (time = 60);
+      return (time = 3);
     default:
-      console.log("bob");
   }
 }
 
 document.querySelector(".start").addEventListener("click", start);
 
 function start() {
-  if (time === null) {
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("error");
-    errorDiv.innerHTML = "Please select a difficulty mode";
+  if (time === ``) {
+    const error = document.createElement("div");
+    error.classList.add("error");
+    error.innerHTML = "Please choose a difficulty";
     document
-      .querySelector(".game-container")
-      .insertAdjacentElement("afterbegin", errorDiv);
+      .querySelector(".display")
+      .insertAdjacentElement("afterbegin", error);
     return;
+  } else {
+    const error = document.querySelector(".error");
+    if (error) {
+      error.remove();
+    }
   }
-  DOMSelectors.start.style.display = "none";
-  DOMSelectors.example.style.display = "none";
+  DOMSelectors.starting.remove();
   DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
   DOMSelectors.scoreParent.innerHTML = "<p class='score'> Score: 0/15 </p>";
   interval = setInterval(timer, 1000);
   shuffle();
   timer();
   grid();
+  DOMSelectors.display.insertAdjacentHTML(
+    "afterbegin",
+    `<button class="homeInGame">Home <i class="fa fa-home"></i></button>`
+  );
+  document.querySelector(".homeInGame").addEventListener("click", function () {
+    location.reload();
+  });
 }
 
 function timer() {
@@ -143,6 +150,7 @@ function winPopup() {
     `<h2> Congratulations!</h2> <p> You have won the game!</p> <p> Score: 15/15 </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i>Home</button> `
   );
   home();
+  document.querySelector(".homeInGame").remove();
 }
 
 function losePopup() {
@@ -151,6 +159,7 @@ function losePopup() {
     `<h2> Time's Up!</h2> <p> You have lost the game!</p> <p> Score: ${score}/15 </p> <p> Time Left: 0s </p> <button class="home">Home <i class="fa fa-home"></i></button>`
   );
   home();
+  document.querySelector(".homeInGame").remove();
 }
 
 function home() {

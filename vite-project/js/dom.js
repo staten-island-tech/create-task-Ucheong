@@ -20,6 +20,11 @@ const DOMSelectors = {
   popup: document.querySelector(".popup"),
   example: document.querySelector(".example"),
   cards: document.querySelectorAll(".card"),
+  modebuttons: document.querySelector(".modebuttons"),
+  starting: document.querySelector(".starting"),
+  hard: document.querySelector(".hard"),
+  medium: document.querySelector(".medium"),
+  easy: document.querySelector(".easy"),
 };
 
 export { DOMSelectors };
