@@ -26,11 +26,15 @@ function difficulty(mode) {
   switch (mode) {
     case "easy":
       return (time = 300);
+      break;
     case "medium":
       return (time = 180);
+      break;
     case "hard":
-      return (time = 3);
+      return (time = 60);
+      break;
     default:
+      time === 0;
   }
 }
 
