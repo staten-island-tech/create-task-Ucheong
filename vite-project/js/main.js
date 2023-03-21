@@ -7,34 +7,56 @@ import "./array";
 let cards = document.querySelectorAll(".card"),
   selected = [],
   time = ``,
-  score = 0;
+  score = 0,
+  cardCount = ` `;
 let interval;
 
 DOMSelectors.easy.addEventListener("click", function () {
-  difficulty("easy");
+  difficulty("Easy");
+  removeError();
 });
 
 DOMSelectors.medium.addEventListener("click", function () {
-  difficulty("medium");
+  difficulty("Medium");
+  removeError();
 });
 
 DOMSelectors.hard.addEventListener("click", function () {
-  difficulty("hard");
+  difficulty("Hard");
+  removeError();
 });
+
+function removeError() {
+  const error = document.querySelector(".error");
+  if (error) {
+    error.remove();
+  }
+}
 
 function difficulty(mode) {
   switch (mode) {
-    case "easy":
-      return (time = 300);
+    case "Easy":
+      monkeyArray.splice(10);
+      cardCount = 10;
+      time = 300;
       break;
-    case "medium":
-      return (time = 180);
+    case "Medium":
+      time = 180;
       break;
-    case "hard":
-      return (time = 60);
+    case "Hard":
+      time = 60;
       break;
     default:
       time === 0;
+  }
+  let selectedMode = document.querySelector(".selectedMode");
+  if (selectedMode) {
+    selectedMode.textContent = `Selected Mode: ${mode}`;
+  } else {
+    DOMSelectors.display.insertAdjacentHTML(
+      "afterbegin",
+      `<p class="selectedMode">Selected Mode: ${mode}</p>`
+    );
   }
 }
 
@@ -50,10 +72,11 @@ function start() {
       .insertAdjacentElement("afterbegin", error);
     return;
   } else {
-    const error = document.querySelector(".error");
-    if (error) {
-      error.remove();
-    }
+    removeError();
+  }
+  let selectedMode = document.querySelector(".selectedMode");
+  if (selectedMode) {
+    selectedMode.remove();
   }
   DOMSelectors.starting.remove();
   DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
@@ -89,7 +112,7 @@ function timer() {
   }
 }
 
-function grid() {
+function grid(mode) {
   const cardCount = 30;
   const blackImg = "../imgs/black.avif";
   for (let i = 0; i < cardCount; i++) {
@@ -173,3 +196,4 @@ function home() {
 }
 //css (flipcard, remove card) keep cards in same position even after others get removed, move time and score to the top, give the example at the beginning
 //css so when popup shows up, u cant clikc anything outisde of it and u cant clikc outta it
+//combine mode with grid, change the amount of cards that appear depending on the mode

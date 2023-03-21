@@ -25,6 +25,7 @@ const DOMSelectors = {
   hard: document.querySelector(".hard"),
   medium: document.querySelector(".medium"),
   easy: document.querySelector(".easy"),
+  selectedMode: document.querySelector(".selectedMode"),
 };
 
 export { DOMSelectors };
