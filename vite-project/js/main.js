@@ -149,4 +149,5 @@ function home() {
   });
 }
 //css (flipcard, remove card) keep cards in same position even after others get removed, move time and score to the top, give the example at the beginning
-//css so when popup shows up, u cant clikc anything outisde of it and u cant clikc outta it
+//css popup
+// add comments to code for functionally
