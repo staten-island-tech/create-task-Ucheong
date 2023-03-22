@@ -7,92 +7,20 @@ import "./array";
 let cards = document.querySelectorAll(".card"),
   selected = [],
   time = ``,
-  score = 0,
-  cardCount = ` `;
+  score = 0;
 let interval;
 
 DOMSelectors.easy.addEventListener("click", function () {
-  difficulty("Easy");
-  removeError();
+  grid("Easy");
 });
 
 DOMSelectors.medium.addEventListener("click", function () {
-  difficulty("Medium");
-  removeError();
+  grid("Medium");
 });
 
 DOMSelectors.hard.addEventListener("click", function () {
-  difficulty("Hard");
-  removeError();
+  grid("Hard");
 });
-
-function removeError() {
-  const error = document.querySelector(".error");
-  if (error) {
-    error.remove();
-  }
-}
-
-function difficulty(mode) {
-  switch (mode) {
-    case "Easy":
-      monkeyArray.splice(10);
-      cardCount = 10;
-      time = 300;
-      break;
-    case "Medium":
-      time = 180;
-      break;
-    case "Hard":
-      time = 60;
-      break;
-    default:
-      time === 0;
-  }
-  let selectedMode = document.querySelector(".selectedMode");
-  if (selectedMode) {
-    selectedMode.textContent = `Selected Mode: ${mode}`;
-  } else {
-    DOMSelectors.display.insertAdjacentHTML(
-      "afterbegin",
-      `<p class="selectedMode">Selected Mode: ${mode}</p>`
-    );
-  }
-}
-
-document.querySelector(".start").addEventListener("click", start);
-
-function start() {
-  if (time === ``) {
-    const error = document.createElement("div");
-    error.classList.add("error");
-    error.innerHTML = "Please choose a difficulty";
-    document
-      .querySelector(".display")
-      .insertAdjacentElement("afterbegin", error);
-    return;
-  } else {
-    removeError();
-  }
-  let selectedMode = document.querySelector(".selectedMode");
-  if (selectedMode) {
-    selectedMode.remove();
-  }
-  DOMSelectors.starting.remove();
-  DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
-  DOMSelectors.scoreParent.innerHTML = "<p class='score'> Score: 0/15 </p>";
-  interval = setInterval(timer, 1000);
-  shuffle();
-  timer();
-  grid();
-  DOMSelectors.display.insertAdjacentHTML(
-    "afterbegin",
-    `<button class="homeInGame">Home <i class="fa fa-home"></i></button>`
-  );
-  document.querySelector(".homeInGame").addEventListener("click", function () {
-    location.reload();
-  });
-}
 
 function timer() {
   let minutes = Math.floor(time / 60);
@@ -115,6 +43,19 @@ function timer() {
 function grid(mode) {
   const cardCount = 30;
   const blackImg = "../imgs/black.avif";
+  switch (mode) {
+    case "Easy":
+      time = 300;
+      break;
+    case "Medium":
+      time = 180;
+      break;
+    case "Hard":
+      time = 60;
+      break;
+    default:
+      time = 60;
+  }
   for (let i = 0; i < cardCount; i++) {
     let monkeyImg =
       monkeyArray[Math.floor(Math.random() * (monkeyArray.length - 1))];
@@ -127,6 +68,19 @@ function grid(mode) {
   cards = document.querySelectorAll(".card");
   cards.forEach((card) => {
     card.addEventListener("click", flipCard);
+  });
+  DOMSelectors.starting.remove();
+  DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
+  DOMSelectors.scoreParent.innerHTML = "<p class='score'> Score: 0/15 </p>";
+  interval = setInterval(timer, 1000);
+  shuffle();
+  timer();
+  DOMSelectors.homeInGame.insertAdjacentHTML(
+    "afterbegin",
+    `<button class="homeInGame">Home <i class="fa fa-home"></i></button>`
+  );
+  document.querySelector(".homeInGame").addEventListener("click", function () {
+    location.reload();
   });
 }
 
@@ -196,4 +150,3 @@ function home() {
 }
 //css (flipcard, remove card) keep cards in same position even after others get removed, move time and score to the top, give the example at the beginning
 //css so when popup shows up, u cant clikc anything outisde of it and u cant clikc outta it
-//combine mode with grid, change the amount of cards that appear depending on the mode

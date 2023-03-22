@@ -31,19 +31,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
-.start{
-  float: left;
-  padding: 10px;
-  color: white;
-  font-size: 10px;
-  border-color: white;
-  background-color: green;
-  border-left: none; 
-  cursor: pointer;
-  display: inline;
-}
-
 .home {}
   
 .explaination {
