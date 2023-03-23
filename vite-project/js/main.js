@@ -6,7 +6,8 @@ import "./array";
 
 let cards = document.querySelectorAll(".card"),
   selected = [],
-  time = ``,
+  time = 60,
+  cardCount = ``,
   score = 0;
 let interval;
 
@@ -41,20 +42,19 @@ function timer() {
 }
 
 function grid(mode) {
-  const cardCount = 30;
   const blackImg = "../imgs/black.avif";
   switch (mode) {
     case "Easy":
-      time = 300;
+      cardCount = 10;
       break;
     case "Medium":
-      time = 180;
+      cardCount = 20;
       break;
     case "Hard":
-      time = 60;
+      cardCount = 30;
       break;
     default:
-      time = 60;
+      cardCount = 30;
   }
   for (let i = 0; i < cardCount; i++) {
     let monkeyImg =
