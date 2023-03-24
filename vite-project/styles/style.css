@@ -30,15 +30,9 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-.home {}
   
 .explaination {
   text-align: center;
-}
-
-.grid, .gridbefore{
-  display: flex;
 }
 
 /* .popup {
@@ -51,11 +45,38 @@ button:focus-visible {
 .scoreparent {
   text-align: center;
 }
-.timer {
+
+.timerbox {
   text-align: center;
 }
 
 .card{
   width: 200px;
   height: 200px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background-color: white;
+  border: 10px;
+}
+
+.background {
+
+}
+
+.homeInGame {
+  text-align: center;
+}
+
+.explanation {
+  text-align: center;
+}
+
+.losePopup, .winPopup{
+  text-align: center;
 }

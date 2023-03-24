@@ -9,17 +9,15 @@
 //   scoreparent: document.querySelector(".scoreparent"),
 // };
 
-const DOMSelectors = {
-  timerBox: document.querySelector(".timerbox"),
-  display: document.querySelector(".display"),
-  cards: document.querySelector(".cards"),
-  scoreParent: document.querySelector(".scoreparent"),
-  popup: document.querySelector(".popup"),
-  starting: document.querySelector(".starting"),
-  hard: document.querySelector(".hard"),
-  medium: document.querySelector(".medium"),
-  easy: document.querySelector(".easy"),
-  homeInGame: document.querySelector(".homeInGame"),
-};
-
-export { DOMSelectors };
+// const DOMSelectors = {
+//   timerBox: document.querySelector(".timerbox"),
+//   display: document.querySelector(".display"),
+//   cards: document.querySelector(".cards"),
+//   scoreParent: document.querySelector(".scoreparent"),
+//   popup: document.querySelector(".popup"),
+//   starting: document.querySelector(".starting"),
+//   hard: document.querySelector(".hard"),
+//   medium: document.querySelector(".medium"),
+//   easy: document.querySelector(".easy"),
+//   homeInGame: document.querySelector(".homeInGame"),
+// };
