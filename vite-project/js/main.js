@@ -1,8 +1,4 @@
-// import "./dom";
-// import { DOMSelectors } from "./dom";
 import "../styles/style.css";
-// import { monkeyArray } from "./array";
-// import "./array";
 
 const monkeyArray = [
   "imgs/monkey1.jpg",
@@ -39,8 +35,6 @@ const monkeyArray = [
 
 const DOMSelectors = {
   timer: document.querySelector(".timer"),
-  display: document.querySelector(".display"),
-  cards: document.querySelector(".cards"),
   score: document.querySelector(".score"),
   popup: document.querySelector(".popup"),
   starting: document.querySelector(".starting"),
@@ -53,7 +47,7 @@ const DOMSelectors = {
 
 let cards = document.querySelectorAll(".card"),
   selected = [],
-  time = 3,
+  time = 60,
   cardCount = ``,
   totalScore = ``,
   score = 0;
@@ -161,12 +155,13 @@ function check() {
   if (firstImg === secondImg) {
     score++;
     DOMSelectors.score.innerHTML = `Score: ${score}/${totalScore}`;
-    selected[0].element.remove();
-    selected[1].element.remove();
     if (score === totalScore) {
       clearInterval(interval);
       winPopup();
     }
+    selected.forEach((card) => {
+      card.element.classList.add("matched");
+    });
   } else {
     selected.forEach((card) => {
       card.element.src = `../imgs/black.avif`;
@@ -174,8 +169,14 @@ function check() {
     });
   }
   selected = [];
+  const matchedCards = document.querySelectorAll(".matched");
+  matchedCards.forEach((card) => {
+    card.removeEventListener("click", flipCard);
+  });
   cards.forEach((card) => {
-    card.addEventListener("click", flipCard);
+    if (!card.classList.contains("matched")) {
+      card.addEventListener("click", flipCard);
+    }
   });
 }
 
@@ -186,7 +187,7 @@ function winPopup() {
     <h2 class="stat"> Congratulations!</h2> 
     <p class="desc"> You have won the game!</p> 
     <p class="details"> Score: ${score}/${totalScore} </p> 
-    <p class="details"> Time Left: ${time}s </p> 
+    <p class="details"> Time Left: ${time + 1}s </p> 
     <button class="home"><i class="fa fa-home"></i>Home</button>
     </div> `
   );
@@ -214,6 +215,5 @@ function home() {
     location.reload();
   });
 }
-//css (flipcard, remove card) keep cards in same position even after others get removed, move time and score to the top, give the example at the beginning
-//css popup
+
 // add comments to code for functionally
