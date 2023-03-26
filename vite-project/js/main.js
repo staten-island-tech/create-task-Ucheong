@@ -46,7 +46,7 @@ const DOMSelectors = {
 };
 
 let cards = document.querySelectorAll(".card"),
-  selected = [],
+  chosen = [],
   time = 60,
   cardCount = ``,
   totalScore = ``,
@@ -139,19 +139,19 @@ function flipCard(event) {
   const img = event.target;
   img.src = img.id;
   const card = { src: img.id, element: img };
-  selected.push(card);
+  chosen.push(card);
   card.element.removeEventListener("click", flipCard);
-  if (selected.length === 2) {
+  if (chosen.length === 2) {
     cards.forEach((card) => {
       card.removeEventListener("click", flipCard);
     });
-    setTimeout(check, 500);
+    setTimeout(check, 600);
   }
 }
 
 function check() {
-  let firstImg = selected[0].src;
-  let secondImg = selected[1].src;
+  let firstImg = chosen[0].src;
+  let secondImg = chosen[1].src;
   if (firstImg === secondImg) {
     score++;
     DOMSelectors.score.innerHTML = `Score: ${score}/${totalScore}`;
@@ -159,22 +159,22 @@ function check() {
       clearInterval(interval);
       winPopup();
     }
-    selected.forEach((card) => {
-      card.element.classList.add("matched");
+    chosen.forEach((card) => {
+      card.element.classList.add("match");
     });
   } else {
-    selected.forEach((card) => {
+    chosen.forEach((card) => {
       card.element.src = `../imgs/black.avif`;
       card.element.addEventListener("click", flipCard);
     });
   }
-  selected = [];
-  const matchedCards = document.querySelectorAll(".matched");
-  matchedCards.forEach((card) => {
+  chosen = [];
+  const matched = document.querySelectorAll(".match");
+  matched.forEach((card) => {
     card.removeEventListener("click", flipCard);
   });
   cards.forEach((card) => {
-    if (!card.classList.contains("matched")) {
+    if (!card.classList.contains("match")) {
       card.addEventListener("click", flipCard);
     }
   });
@@ -217,3 +217,4 @@ function home() {
 }
 
 // add comments to code for functionally
+//cite all my sources ex. the shuffle function, figure it out for the time function, the math.floor, the index of one
