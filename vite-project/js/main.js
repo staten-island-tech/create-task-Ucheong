@@ -38,10 +38,10 @@ const monkeyArray = [
 ];
 
 const DOMSelectors = {
-  timerBox: document.querySelector(".timerbox"),
+  timer: document.querySelector(".timer"),
   display: document.querySelector(".display"),
   cards: document.querySelector(".cards"),
-  scoreParent: document.querySelector(".scoreparent"),
+  score: document.querySelector(".score"),
   popup: document.querySelector(".popup"),
   starting: document.querySelector(".starting"),
   hard: document.querySelector(".hard"),
@@ -79,7 +79,7 @@ function timer() {
   } else {
     seconds = time % 60;
   }
-  DOMSelectors.timerBox.innerHTML = `${minutes}m:${seconds}s`;
+  DOMSelectors.timer.innerHTML = `${minutes}m:${seconds}s`;
   time--;
   if (time === -1) {
     clearInterval(interval);
@@ -123,8 +123,8 @@ function grid(mode) {
     card.addEventListener("click", flipCard);
   });
   DOMSelectors.starting.remove();
-  DOMSelectors.timerBox.innerHTML = "<p class='timer'>1:00</p>";
-  DOMSelectors.scoreParent.innerHTML = `<p class="score"> Score: 0/${totalScore} </p>`;
+  DOMSelectors.timer.innerHTML = "<p class='timer'>1:00</p>";
+  DOMSelectors.score.innerHTML = `<p class="score"> Score: 0/${totalScore} </p>`;
   interval = setInterval(timer, 1000);
   shuffle();
   timer();
@@ -160,7 +160,7 @@ function check() {
   let secondImg = selected[1].src;
   if (firstImg === secondImg) {
     score++;
-    DOMSelectors.scoreParent.innerHTML = `Score: ${score}/${totalScore}`;
+    DOMSelectors.score.innerHTML = `Score: ${score}/${totalScore}`;
     selected[0].element.remove();
     selected[1].element.remove();
     if (score === totalScore) {
@@ -182,7 +182,13 @@ function check() {
 function winPopup() {
   DOMSelectors.popup.insertAdjacentHTML(
     "afterbegin",
-    `<div class="winPopup"><h2> Congratulations!</h2> <p> You have won the game!</p> <p> Score: ${score}/${totalScore} </p> <p> Time Left: ${time}s </p> <button class="home"><i class="fa fa-home"></i>Home</button></div> `
+    `<div class="winPopup">
+    <h2 class="stat"> Congratulations!</h2> 
+    <p class="desc"> You have won the game!</p> 
+    <p class="details"> Score: ${score}/${totalScore} </p> 
+    <p class="details"> Time Left: ${time}s </p> 
+    <button class="home"><i class="fa fa-home"></i>Home</button>
+    </div> `
   );
   home();
   document.querySelector(".homeInGame").remove();
@@ -191,7 +197,13 @@ function winPopup() {
 function losePopup() {
   DOMSelectors.popup.insertAdjacentHTML(
     "afterbegin",
-    `<div class="losePopup"><h2> Time's Up!</h2> <p> You have lost the game!</p> <p> Score: ${score}/${totalScore} </p> <p> Time Left: 0s </p> <button class="home">Home <i class="fa fa-home"></i></button></div>`
+    `<div class="losePopup"> 
+    <h2 class="stat"> Time's Up!</h2> 
+    <p class="desc"> You have lost the game!</p> 
+    <p class="details"> Score: ${score}/${totalScore} </p>
+    <p class="details"> Time Left: 0s </p> 
+    <button class="home">Home <i class="fa fa-home"></i></button>
+    </div>`
   );
   home();
   document.querySelector(".homeInGame").remove();

@@ -33,6 +33,7 @@ button:focus-visible {
   
 .explaination {
   text-align: center;
+  font-size: 2rem;
 }
 
 /* .popup {
@@ -42,17 +43,21 @@ button:focus-visible {
   position: fixed;
 } */
 
-.scoreparent {
+.score {
   text-align: center;
+  font-size: 16px;
+  margin-top: 1rem;
 }
 
-.timerbox {
+.timer {
   text-align: center;
+  font-size: 16px;
 }
 
 .card{
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+  grid-gap: 50px;
 }
 
 .popup {
@@ -62,7 +67,6 @@ button:focus-visible {
   transform: translate(-50%, -50%);
   z-index: 10;
   background-color: white;
-  border: 10px;
 }
 
 .background {
@@ -75,8 +79,38 @@ button:focus-visible {
 
 .explanation {
   text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 .losePopup, .winPopup{
+  text-align: center;
+}
+
+.easy, .medium, .hard {
+  text-align: center;
+}
+
+.stat {
+  font-size: 6rem;
+}
+
+.desc {
+  font-size: 4rem;
+}
+
+.details {
+  font-size: 3rem;
+}
+
+#title {
+  font-size: 4rem;
+}
+
+.homeInGame {
+  margin-top: 3rem;
+}
+
+.grid {
   text-align: center;
 }
