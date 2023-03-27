@@ -1,39 +1,39 @@
 import "../styles/style.css";
 
-const monkeyArray = [
-  "imgs/monkey1.jpg",
-  "imgs/monkey1.jpg",
-  "imgs/monkey2.jpg",
-  "imgs/monkey2.jpg",
-  "imgs/monkey3.jpg",
-  "imgs/monkey3.jpg",
-  "imgs/monkey4.jpg",
-  "imgs/monkey4.jpg",
-  "imgs/monkey5.jpg",
-  "imgs/monkey5.jpg",
-  "imgs/monkey6.jpg",
-  "imgs/monkey6.jpg",
-  "imgs/monkey7.jpg",
-  "imgs/monkey7.jpg",
-  "imgs/monkey8.jpg",
-  "imgs/monkey8.jpg",
-  "imgs/monkey9.jpg",
-  "imgs/monkey9.jpg",
-  "imgs/monkey10.jpg",
-  "imgs/monkey10.jpg",
-  "imgs/monkey11.jpg",
-  "imgs/monkey11.jpg",
-  "imgs/monkey12.jpg",
-  "imgs/monkey12.jpg",
-  "imgs/monkey13.jpg",
-  "imgs/monkey13.jpg",
-  "imgs/monkey14.jpg",
-  "imgs/monkey14.jpg",
-  "imgs/monkey15.jpg",
-  "imgs/monkey15.jpg",
-];
+// const monkeyArray = [
+//   "imgs/monkey1.jpg",
+//   "imgs/monkey1.jpg",
+//   "imgs/monkey2.jpg",
+//   "imgs/monkey2.jpg",
+//   "imgs/monkey3.jpg",
+//   "imgs/monkey3.jpg",
+//   "imgs/monkey4.jpg",
+//   "imgs/monkey4.jpg",
+//   "imgs/monkey5.jpg",
+//   "imgs/monkey5.jpg",
+//   "imgs/monkey6.jpg",
+//   "imgs/monkey6.jpg",
+//   "imgs/monkey7.jpg",
+//   "imgs/monkey7.jpg",
+//   "imgs/monkey8.jpg",
+//   "imgs/monkey8.jpg",
+//   "imgs/monkey9.jpg",
+//   "imgs/monkey9.jpg",
+//   "imgs/monkey10.jpg",
+//   "imgs/monkey10.jpg",
+//   "imgs/monkey11.jpg",
+//   "imgs/monkey11.jpg",
+//   "imgs/monkey12.jpg",
+//   "imgs/monkey12.jpg",
+//   "imgs/monkey13.jpg",
+//   "imgs/monkey13.jpg",
+//   "imgs/monkey14.jpg",
+//   "imgs/monkey14.jpg",
+//   "imgs/monkey15.jpg",
+//   "imgs/monkey15.jpg",
+// ];
 
-const modeMonkeyArray = [
+const monkeyArray = [
   "imgs/monkey1.jpg",
   "imgs/monkey2.jpg",
   "imgs/monkey3.jpg",
@@ -103,27 +103,27 @@ function timer() {
 
 function grid(mode) {
   const blackImg = "../imgs/black.avif";
-  let duplicatedArray;
+  let copyArray;
   //Depending on which difficulty level is chosen, the totalScore and cardCount changes
   switch (mode) {
     case "Easy":
-      shuffle2(modeMonkeyArray);
-      modeMonkeyArray.splice(5);
-      duplicatedArray = modeMonkeyArray.concat(modeMonkeyArray);
+      shuffle(monkeyArray);
+      monkeyArray.splice(5);
+      copyArray = monkeyArray.concat(monkeyArray);
       totalScore = 5;
       cardCount = 10;
       break;
     case "Medium":
-      shuffle2(modeMonkeyArray);
-      modeMonkeyArray.splice(10);
-      duplicatedArray = modeMonkeyArray.concat(modeMonkeyArray);
+      shuffle(monkeyArray);
+      monkeyArray.splice(10);
+      copyArray = monkeyArray.concat(monkeyArray);
       totalScore = 10;
       cardCount = 20;
       break;
     case "Hard":
-      shuffle2(modeMonkeyArray);
-      modeMonkeyArray.splice(15);
-      duplicatedArray = modeMonkeyArray.concat(modeMonkeyArray);
+      shuffle(monkeyArray);
+      monkeyArray.splice(15);
+      copyArray = monkeyArray.concat(monkeyArray);
       totalScore = 15;
       cardCount = 30;
       break;
@@ -135,13 +135,13 @@ function grid(mode) {
   for (let i = 0; i < cardCount; i++) {
     //make monkeyImg equal a random element in monkeyArray
     let monkeyImg =
-      duplicatedArray[Math.floor(Math.random() * (duplicatedArray.length - 1))];
+      copyArray[Math.floor(Math.random() * (copyArray.length - 1))];
     DOMSelectors.grid.insertAdjacentHTML(
       "afterbegin",
       `<img class="card" src="${blackImg}" id="${monkeyImg}"/>`
     );
     //makes sure that each monkeyImg is only used once; from https://stackoverflow.com/questions/65076165/array-spliceindex-1-returns-array-with-removed-item
-    duplicatedArray.splice(duplicatedArray.indexOf(monkeyImg), 1);
+    copyArray.splice(copyArray.indexOf(monkeyImg), 1);
   }
   cards = document.querySelectorAll(".card");
   cards.forEach((card) => {
@@ -151,8 +151,6 @@ function grid(mode) {
   DOMSelectors.timer.innerHTML = "<p class='timer'>1:00</p>";
   DOMSelectors.score.innerHTML = `<p class="score"> Score: 0/${totalScore} </p>`;
   interval = setInterval(timer, 1000);
-  shuffle();
-  shuffle2();
   timer();
   DOMSelectors.homeButton.insertAdjacentHTML(
     "afterbegin",
@@ -167,12 +165,6 @@ function grid(mode) {
 function shuffle() {
   //from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   monkeyArray.sort(() => 0.5 - Math.random());
-}
-
-//shuffle the array
-function shuffle2() {
-  //from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-  modeMonkeyArray.sort(() => 0.5 - Math.random());
 }
 
 //flips the card

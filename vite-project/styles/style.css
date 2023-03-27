@@ -71,10 +71,6 @@ button:focus-visible {
   border: 1px solid black;
 }
 
-.homeInGame {
-  text-align: center;
-}
-
 .explanation {
   text-align: center;
   font-size: 2rem;
@@ -102,11 +98,6 @@ button:focus-visible {
   font-size: 4rem;
 }
 
-.homeButton {
-  margin-top: 1rem;
-  margin-bottom: 2rem ;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -125,4 +116,10 @@ button:focus-visible {
   height: 50%;
   display: flex;
   margin-bottom: 3rem;
+}
+
+.homeButton {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
 }
