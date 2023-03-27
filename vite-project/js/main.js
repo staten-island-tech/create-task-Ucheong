@@ -59,7 +59,7 @@ const DOMSelectors = {
   hard: document.querySelector(".hard"),
   medium: document.querySelector(".medium"),
   easy: document.querySelector(".easy"),
-  homeInGame: document.querySelector(".homeInGame"),
+  homeButton: document.querySelector(".homeButton"),
   grid: document.querySelector(".grid"),
 };
 
@@ -121,6 +121,9 @@ function grid(mode) {
       cardCount = 20;
       break;
     case "Hard":
+      shuffle2(modeMonkeyArray);
+      modeMonkeyArray.splice(15);
+      duplicatedArray = modeMonkeyArray.concat(modeMonkeyArray);
       totalScore = 15;
       cardCount = 30;
       break;
@@ -151,7 +154,7 @@ function grid(mode) {
   shuffle();
   shuffle2();
   timer();
-  DOMSelectors.homeInGame.insertAdjacentHTML(
+  DOMSelectors.homeButton.insertAdjacentHTML(
     "afterbegin",
     `<button class="homeInGame">Home <i class="fa fa-home"></i></button>`
   );
