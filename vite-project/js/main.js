@@ -1,38 +1,5 @@
 import "../styles/style.css";
 
-// const monkeyArray = [
-//   "imgs/monkey1.jpg",
-//   "imgs/monkey1.jpg",
-//   "imgs/monkey2.jpg",
-//   "imgs/monkey2.jpg",
-//   "imgs/monkey3.jpg",
-//   "imgs/monkey3.jpg",
-//   "imgs/monkey4.jpg",
-//   "imgs/monkey4.jpg",
-//   "imgs/monkey5.jpg",
-//   "imgs/monkey5.jpg",
-//   "imgs/monkey6.jpg",
-//   "imgs/monkey6.jpg",
-//   "imgs/monkey7.jpg",
-//   "imgs/monkey7.jpg",
-//   "imgs/monkey8.jpg",
-//   "imgs/monkey8.jpg",
-//   "imgs/monkey9.jpg",
-//   "imgs/monkey9.jpg",
-//   "imgs/monkey10.jpg",
-//   "imgs/monkey10.jpg",
-//   "imgs/monkey11.jpg",
-//   "imgs/monkey11.jpg",
-//   "imgs/monkey12.jpg",
-//   "imgs/monkey12.jpg",
-//   "imgs/monkey13.jpg",
-//   "imgs/monkey13.jpg",
-//   "imgs/monkey14.jpg",
-//   "imgs/monkey14.jpg",
-//   "imgs/monkey15.jpg",
-//   "imgs/monkey15.jpg",
-// ];
-
 const monkeyArray = [
   "imgs/monkey1.jpg",
   "imgs/monkey2.jpg",
