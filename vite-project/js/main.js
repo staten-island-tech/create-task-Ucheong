@@ -68,7 +68,7 @@ DOMSelectors.hard.addEventListener("click", function () {
 function timer() {
   let minutes = Math.floor(time / 60);
   let seconds = time % 60;
-  //if there are less than 10 seconds, then a zero is added at the end of the amount of seconds, if not, I keep it as is
+  //if there are less than 10 seconds, then a zero is added at the end of the amount of seconds, if not, it is kept as is
   if (seconds < 10) {
     seconds = "0" + seconds;
   } else {
@@ -79,7 +79,7 @@ function timer() {
   //if the time is at 0m:00s, clearInterval(interval) makes it so that the time does not go into the negatives (ex. -1m:00s); a popup also appears and says that you lost
   if (time === -1) {
     clearInterval(interval);
-    losePopup();
+    lose();
   }
 }
 
@@ -115,7 +115,7 @@ function grid(mode) {
       "afterbegin",
       `<img class="card" src="${blackImg}" id="${monkeyImg}"/>`
     );
-    //makes sure that each monkeyImg is only used once
+    //makes sure that each monkeyImg is only used once; from https://stackoverflow.com/questions/65076165/array-spliceindex-1-returns-array-with-removed-item
     monkeyArray.splice(monkeyArray.indexOf(monkeyImg), 1);
   }
   cards = document.querySelectorAll(".card");
@@ -139,6 +139,7 @@ function grid(mode) {
 
 //shuffle the array
 function shuffle() {
+  //from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   monkeyArray.sort(() => 0.5 - Math.random());
 }
 
@@ -169,7 +170,7 @@ function check() {
     // if the current score equals the total score, clearInterval(interval) makes it so that the time does not go into the negatives (ex. -1m:00s); a popup also appears and says that you won
     if (score === totalScore) {
       clearInterval(interval);
-      winPopup();
+      win();
     }
     chosen.forEach((card) => {
       card.element.classList.add("match");
@@ -194,7 +195,7 @@ function check() {
   });
 }
 
-function winPopup() {
+function win() {
   DOMSelectors.popup.insertAdjacentHTML(
     "afterbegin",
     `<div class="winPopup">
@@ -209,7 +210,7 @@ function winPopup() {
   document.querySelector(".homeInGame").remove();
 }
 
-function losePopup() {
+function lose() {
   DOMSelectors.popup.insertAdjacentHTML(
     "afterbegin",
     `<div class="losePopup"> 
@@ -224,12 +225,11 @@ function losePopup() {
   document.querySelector(".homeInGame").remove();
 }
 
-//sends you back to the starting page
+//sends the user back to the starting page
 function home() {
   document.querySelector(".home").addEventListener("click", function () {
     location.reload();
   });
 }
 
-// add comments to code for functionally
-//cite all my sources ex. the shuffle function, figure it out for the time function, the math.floor, the index of one
+//cite all my sources
