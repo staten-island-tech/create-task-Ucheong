@@ -104,24 +104,22 @@ function timer() {
 function grid(mode) {
   const blackImg = "../imgs/black.avif";
   let copyArray;
+  shuffle(monkeyArray);
   //Depending on which difficulty level is chosen, the totalScore and cardCount changes
   switch (mode) {
     case "Easy":
-      shuffle(monkeyArray);
       monkeyArray.splice(5);
       copyArray = monkeyArray.concat(monkeyArray);
       totalScore = 5;
       cardCount = 10;
       break;
     case "Medium":
-      shuffle(monkeyArray);
       monkeyArray.splice(10);
       copyArray = monkeyArray.concat(monkeyArray);
       totalScore = 10;
       cardCount = 20;
       break;
     case "Hard":
-      shuffle(monkeyArray);
       monkeyArray.splice(15);
       copyArray = monkeyArray.concat(monkeyArray);
       totalScore = 15;
