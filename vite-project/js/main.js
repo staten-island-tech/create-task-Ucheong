@@ -68,6 +68,7 @@ DOMSelectors.hard.addEventListener("click", function () {
 function timer() {
   let minutes = Math.floor(time / 60);
   let seconds = time % 60;
+  //if there are less than 10 seconds, then a zero is added at the end of the amount of seconds, if not, I keep it as is
   if (seconds < 10) {
     seconds = "0" + seconds;
   } else {
@@ -75,6 +76,7 @@ function timer() {
   }
   DOMSelectors.timer.innerHTML = `${minutes}m:${seconds}s`;
   time--;
+  //if the time is at 0m:00s, clearInterval(interval) makes it so that the time does not go into the negatives (ex. -1m:00s); a popup also appears and says that you lost
   if (time === -1) {
     clearInterval(interval);
     losePopup();
@@ -83,6 +85,7 @@ function timer() {
 
 function grid(mode) {
   const blackImg = "../imgs/black.avif";
+  //Depending on which difficulty level is chosen, the totalScore and cardCount changes
   switch (mode) {
     case "Easy":
       monkeyArray.splice(10);
@@ -103,13 +106,16 @@ function grid(mode) {
       totalScore = 15;
       cardCount = 30;
   }
+  //generate cards for the grid based on the mode
   for (let i = 0; i < cardCount; i++) {
+    //make monkeyImg equal a random element in monkeyArray
     let monkeyImg =
       monkeyArray[Math.floor(Math.random() * (monkeyArray.length - 1))];
     DOMSelectors.grid.insertAdjacentHTML(
       "afterbegin",
       `<img class="card" src="${blackImg}" id="${monkeyImg}"/>`
     );
+    //makes sure that each monkeyImg is only used once
     monkeyArray.splice(monkeyArray.indexOf(monkeyImg), 1);
   }
   cards = document.querySelectorAll(".card");
@@ -131,16 +137,19 @@ function grid(mode) {
   });
 }
 
+//shuffle the array
 function shuffle() {
   monkeyArray.sort(() => 0.5 - Math.random());
 }
 
+//flips the card
 function flipCard(event) {
   const img = event.target;
   img.src = img.id;
   const card = { src: img.id, element: img };
   chosen.push(card);
   card.element.removeEventListener("click", flipCard);
+  //if two cards are chosen, it removes every cards eventlistener and checks for a match
   if (chosen.length === 2) {
     cards.forEach((card) => {
       card.removeEventListener("click", flipCard);
@@ -149,12 +158,15 @@ function flipCard(event) {
   }
 }
 
+//checks for match
 function check() {
   let firstImg = chosen[0].src;
   let secondImg = chosen[1].src;
+  //if the two images in the chosen array match, the score increases by one
   if (firstImg === secondImg) {
     score++;
     DOMSelectors.score.innerHTML = `Score: ${score}/${totalScore}`;
+    // if the current score equals the total score, clearInterval(interval) makes it so that the time does not go into the negatives (ex. -1m:00s); a popup also appears and says that you won
     if (score === totalScore) {
       clearInterval(interval);
       winPopup();
@@ -163,12 +175,14 @@ function check() {
       card.element.classList.add("match");
     });
   } else {
+    //the chosen cards flip back over
     chosen.forEach((card) => {
       card.element.src = `../imgs/black.avif`;
       card.element.addEventListener("click", flipCard);
     });
   }
   chosen = [];
+  //removes click event from all the cards in the match class, adds the click event back to all the cards thats not in the match class
   const matched = document.querySelectorAll(".match");
   matched.forEach((card) => {
     card.removeEventListener("click", flipCard);
@@ -210,6 +224,7 @@ function losePopup() {
   document.querySelector(".homeInGame").remove();
 }
 
+//sends you back to the starting page
 function home() {
   document.querySelector(".home").addEventListener("click", function () {
     location.reload();
