@@ -53,7 +53,7 @@ DOMSelectors.hard.addEventListener("click", function () {
 function timer() {
   let minutes = Math.floor(time / 60);
   let seconds = time % 60;
-  //if there are less than 10 seconds, then a zero is added at the end of the amount of seconds, if not, it is kept as is
+  //if there are less than 10 seconds, then a zero is added at the start of the amount of seconds, if not, it is kept as is
   if (seconds < 10) {
     seconds = "0" + seconds;
   } else {
@@ -214,7 +214,7 @@ function lose() {
   document.querySelector(".homeInGame").remove();
 }
 
-//sends the user back to the starting page
+//refreshes the page
 function home() {
   document.querySelector(".home").addEventListener("click", function () {
     location.reload();
